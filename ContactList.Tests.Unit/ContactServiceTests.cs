@@ -64,5 +64,19 @@ public class ContactServiceTests : IDisposable
         Assert.Empty(actual);
     }
 
+    [Fact]
+    public async Task SearchByNameAsync_LowerCase_StillReturnsMatch()
+    {
+        // Arrange
+        var ctx = _ctxBuilder.WithContact("Alice").Build();
+        var sut = new ContactService(ctx);
+
+        // Act 
+        var actual = await sut.SearchByNameAsync("alice");
+
+        // Assert 
+        Assert.Single(actual);
+    }
+
     public void Dispose() => _ctxBuilder.Dispose();
 }
