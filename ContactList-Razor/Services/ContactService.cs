@@ -34,6 +34,7 @@ public class ContactService : IContactService
 
     public async Task<IEnumerable<Contact>> SearchByNameAsync(string query)
     {
-        return await _context.Contacts!.Where(c => c.Name.Contains(query)).ToArrayAsync();
+        var lowerQuery = query.ToLower();
+        return await _context.Contacts!.Where(c => c.Name.ToLower().Contains(lowerQuery)).ToArrayAsync();
     }
 }
